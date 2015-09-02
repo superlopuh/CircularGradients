@@ -138,12 +138,6 @@ class ColorMatrixView: NSView {
     }
 }
 
-extension NSColor {
-    var rgbComponents: (CGFloat, CGFloat, CGFloat) {
-        return (redComponent, greenComponent, blueComponent)
-    }
-}
-
 class ManualGradientWithOffset: ManualGradient {
     var wrapAround     = true
     var offset: CGFloat = 0
