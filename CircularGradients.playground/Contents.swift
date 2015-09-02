@@ -2,49 +2,7 @@
 
 import Cocoa
 
-struct ColorVector {
-    var red:    CGFloat
-    var green:  CGFloat
-    var blue:   CGFloat
-    
-    var alpha:  CGFloat
-    
-    init(red: CGFloat = 1.0, green: CGFloat = 1.0, blue: CGFloat = 1.0, alpha: CGFloat = 1.0) {
-        self.red    = red
-        self.green  = green
-        self.blue   = blue
-        
-        self.alpha  = alpha
-    }
-    
-    init?(color: NSColor) {
-        guard let rgbColor = color.colorUsingColorSpace(NSColorSpace.deviceRGBColorSpace()) else {return nil}
-        
-        red     = rgbColor.redComponent
-        green   = rgbColor.greenComponent
-        blue    = rgbColor.blueComponent
-        
-        alpha   = rgbColor.alphaComponent
-    }
-}
 
-func +(lhs: ColorVector, rhs: ColorVector) -> ColorVector {
-    return ColorVector(red: lhs.red + rhs.red, green: lhs.green + rhs.green, blue: lhs.blue + rhs.blue, alpha: lhs.alpha + rhs.alpha)
-}
-
-func *(lhs: CGFloat, rhs: ColorVector) -> ColorVector {
-    return ColorVector(red: lhs * rhs.red, green: lhs * rhs.green, blue: lhs * rhs.blue, alpha: lhs * rhs.alpha)
-}
-
-func *(lhs: ColorVector, rhs: CGFloat) -> ColorVector {
-    return ColorVector(red: lhs.red * rhs, green: lhs.green * rhs, blue: lhs.blue * rhs, alpha: lhs.red * rhs)
-}
-
-extension NSColor {
-    convenience init(colorVector: ColorVector) {
-        self.init(red: colorVector.red, green: colorVector.green, blue: colorVector.blue, alpha: colorVector.alpha)
-    }
-}
 
 protocol ManualGradient {
     func colorVectorForPoint(point: CGFloat) -> ColorVector
