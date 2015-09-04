@@ -56,40 +56,6 @@ struct CachedGradient: ManualGradient {
     }
 }
 
-struct ColorMatrix {
-    let width:  Int
-    let height: Int
-    
-    var matrix: [[NSColor]]
-    
-    init(width: Int, height: Int, matrix: [[NSColor]]) {
-        // check for width and height
-        
-        self.width  = width
-        self.height = height
-        
-        self.matrix = matrix
-    }
-    
-    init(width: Int, height: Int, colorFunc: (x: CGFloat, y: CGFloat) -> NSColor) {
-        self.width  = width
-        self.height = height
-        
-        let floatWidth  = CGFloat(width - 1)
-        let floatHeight = CGFloat(height - 1)
-        
-        let matrix  = (0..<height).map() {(row: Int) -> [NSColor] in
-            return (0..<width).map() {(column: Int) -> NSColor in
-                let x   = CGFloat(column)   / floatWidth
-                let y   = CGFloat(row)      / floatHeight
-                return colorFunc(x: x, y: y)
-            }
-        }
-        
-        self.matrix = matrix
-    }
-}
-
 
 
 func circularGradientColorFunc<MG: ManualGradient>(manualGradient: MG)(x: CGFloat, y: CGFloat) -> NSColor {
@@ -106,37 +72,7 @@ func horizontalGradientColorFunc<MG: ManualGradient>(manualGradient: MG)(x: CGFl
     return manualGradient.colorForPoint(x)
 }
 
-class ColorMatrixView: NSView {
-    let colorMatrix: ColorMatrix
-    var inverse     = true
-    
-    init(frame frameRect: CGRect, colorMatrix: ColorMatrix) {
-        self.colorMatrix    = colorMatrix
-        super.init(frame: frameRect)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been imlemented")
-    }
-    
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        
-        let width   = Double(rect.size.width)
-        let height  = Double(rect.size.height)
-        
-        let pixelWidth  = width / Double(colorMatrix.width)
-        let pixelHeight = height / Double(colorMatrix.height)
-        
-        for col in 0..<colorMatrix.width {
-            for row in 0..<colorMatrix.height {
-                let y = inverse ? Double(colorMatrix.height - 1 - row) * pixelHeight : Double(row) * pixelHeight
-                colorMatrix.matrix[row][col].setFill()
-                NSBezierPath.fillRect(CGRect(x: Double(col) * pixelWidth, y: y, width: pixelWidth, height: pixelHeight))
-            }
-        }
-    }
-}
+
 
 class ManualGradientWithOffset: ManualGradient {
     var wrapAround     = true
@@ -175,6 +111,7 @@ let numberOfColumns = 30
 let myCircularColorMatrix   = ColorMatrix(width: numberOfColumns, height: numberOfColumns, colorFunc: circularGradientColorFunc(myLinearGradientWithOffset))
 
 let c = ColorMatrixView(frame: rect, colorMatrix: myCircularColorMatrix)
+
 
 //let cachedCircularColorMatrix = ColorMatrix(width: numberOfColumns, height: numberOfColumns, colorFunc: circularGradientColorFunc(myCachedGradient))
 
