@@ -11,7 +11,7 @@ extension VectorGradient {
 func circularGradientColorFunc<VG: VectorGradient>(vectorGradient: VG)(x: Double, y: Double) -> NSColor {
     let (adjustedX, adjustedY) = (x - 0.5, y - 0.5)
     
-    let radians = atan2(Double(adjustedY), Double(adjustedX))
+    let radians = atan2(adjustedY, adjustedX)
     
     let fraction = 0.5 + radians / (M_PI * 2)
     
@@ -31,13 +31,13 @@ let myLinearGradient = LinearGradient(startColorVector: ColorVector(color: NSCol
 let myLinearGradientWithOffset = VectorGradientWithOffset(storedGradient: myLinearGradient)
 myLinearGradientWithOffset.offset = 0.01
 
-//let myCachedGradient = CachedGradient(cacheSize: 1000, manualGradient: myLinearGradientWithOffset)
+//let myCachedGradient = CachedGradient(cacheSize: 1000, vectorGradient: myLinearGradientWithOffset)
 
 //let myHorizontalColorMatrix = ColorMatrix(width: 10, height: 10, colorFunc: horizontalGradientColorFunc(myLinearGradient))
 //
 //let b = ColorMatrixView(frame: rect, colorMatrix: myHorizontalColorMatrix)
 
-let numberOfColumns = 30
+let numberOfColumns = 100
 
 let time0 = NSDate()
 
@@ -52,7 +52,17 @@ let timeDiff = time1.timeIntervalSinceDate(time0)
 
 let msPerSquareInMatrix = (timeDiff / Double(numberOfColumns * numberOfColumns)) * 1000
 
-//let cachedCircularColorMatrix = ColorMatrix(width: numberOfColumns, height: numberOfColumns, colorFunc: circularGradientColorFunc(myCachedGradient))
 
+//let time2 = NSDate()
+//
+//let cachedCircularColorMatrix = ColorMatrix(width: numberOfColumns, height: numberOfColumns, colorFunc: circularGradientColorFunc(myCachedGradient))
+//
+//let time3 = NSDate()
+//
+//let timeDiff1 = time3.timeIntervalSinceDate(time2)
+//
+//let msPerSquareInMatrix1 = (timeDiff1 / Double(numberOfColumns * numberOfColumns)) * 1000
+//
+//
 //let d = ColorMatrixView(frame: rect, colorMatrix: cachedCircularColorMatrix)
 

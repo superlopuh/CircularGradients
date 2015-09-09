@@ -5,14 +5,14 @@ public struct CachedGradient: VectorGradient {
     public let cacheSize:  Int
     public let cache:      [ColorVector]
     
-    init(cacheSize: Int, manualGradient: ManualGradient) {
+    public init(cacheSize: Int, vectorGradient: VectorGradient) {
         self.cacheSize      = cacheSize
         
         // We want the cache to be filled with values for 0.0 to 1.0
         let divisor         = Double(cacheSize - 1)
         
         // Note ..<
-        self.cache          = ((0..<cacheSize).map({Double($0) / divisor})).map({manualGradient.colorVectorForPoint($0)})
+        self.cache          = ((0..<cacheSize).map({Double($0) / divisor})).map({vectorGradient.colorVectorForPoint($0)})
     }
     
     public func colorVectorForPoint(point: Double) -> ColorVector {
