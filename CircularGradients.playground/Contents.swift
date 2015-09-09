@@ -37,15 +37,20 @@ myLinearGradientWithOffset.offset = 0.01
 //
 //let b = ColorMatrixView(frame: rect, colorMatrix: myHorizontalColorMatrix)
 
-let numberOfColumns = 100
-let time0 = NSDate()
-let myCircularColorMatrix   = ColorMatrix(width: numberOfColumns, height: numberOfColumns, colorFunc: circularGradientColorFunc(myLinearGradientWithOffset))
+let numberOfColumns = 30
 
-let c = ColorMatrixView(frame: rect, colorMatrix: myCircularColorMatrix) 
+let time0 = NSDate()
+
+let myCircularColorMatrix   = ColorMatrix(width: numberOfColumns, height: numberOfColumns, colorFunc: circularGradientColorFunc(myLinearGradientWithOffset))
 
 let time1 = NSDate()
 
+let c = ColorMatrixView(frame: rect, colorMatrix: myCircularColorMatrix) 
+
+
 let timeDiff = time1.timeIntervalSinceDate(time0)
+
+let msPerSquareInMatrix = (timeDiff / Double(numberOfColumns * numberOfColumns)) * 1000
 
 //let cachedCircularColorMatrix = ColorMatrix(width: numberOfColumns, height: numberOfColumns, colorFunc: circularGradientColorFunc(myCachedGradient))
 
