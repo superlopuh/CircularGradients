@@ -15,17 +15,17 @@ public struct ColorMatrix {
         self.matrix = matrix
     }
     
-    public init(width: Int, height: Int, colorFunc: (x: CGFloat, y: CGFloat) -> NSColor) {
+    public init(width: Int, height: Int, colorFunc: (x: Double, y: Double) -> NSColor) {
         self.width  = width
         self.height = height
         
-        let floatWidth  = CGFloat(width - 1)
-        let floatHeight = CGFloat(height - 1)
+        let floatWidth  = Double(width - 1)
+        let floatHeight = Double(height - 1)
         
         let matrix  = (0..<height).map() {(row: Int) -> [NSColor] in
             return (0..<width).map() {(column: Int) -> NSColor in
-                let x   = CGFloat(column)   / floatWidth
-                let y   = CGFloat(row)      / floatHeight
+                let x   = Double(column)   / floatWidth
+                let y   = Double(row)      / floatHeight
                 return colorFunc(x: x, y: y)
             }
         }

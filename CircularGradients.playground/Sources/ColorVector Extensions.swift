@@ -4,16 +4,16 @@ public extension ColorVector {
     init?(color: NSColor) {
         guard let rgbColor = color.colorUsingColorSpace(NSColorSpace.deviceRGBColorSpace()) else {return nil}
         
-        red     = rgbColor.redComponent
-        green   = rgbColor.greenComponent
-        blue    = rgbColor.blueComponent
+        red     = Double(rgbColor.redComponent)
+        green   = Double(rgbColor.greenComponent)
+        blue    = Double(rgbColor.blueComponent)
         
-        alpha   = rgbColor.alphaComponent
+        alpha   = Double(rgbColor.alphaComponent)
     }
 }
 
 public extension NSColor {
     convenience init(colorVector: ColorVector) {
-        self.init(red: colorVector.red, green: colorVector.green, blue: colorVector.blue, alpha: colorVector.alpha)
+        self.init(red: CGFloat(colorVector.red), green: CGFloat(colorVector.green), blue: CGFloat(colorVector.blue), alpha: CGFloat(colorVector.alpha))
     }
 }

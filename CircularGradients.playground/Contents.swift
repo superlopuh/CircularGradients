@@ -3,27 +3,24 @@
 import Cocoa
 
 extension VectorGradient {
-    func colorForPoint(point: CGFloat) -> NSColor {
+    func colorForPoint(point: Double) -> NSColor {
         return NSColor(colorVector: colorVectorForPoint(point))
     }
 }
 
-func circularGradientColorFunc<VG: VectorGradient>(vectorGradient: VG)(x: CGFloat, y: CGFloat) -> NSColor {
+func circularGradientColorFunc<VG: VectorGradient>(vectorGradient: VG)(x: Double, y: Double) -> NSColor {
     let (adjustedX, adjustedY) = (x - 0.5, y - 0.5)
     
-    let radians = atan2(CGFloat(adjustedY), CGFloat(adjustedX))
+    let radians = atan2(Double(adjustedY), Double(adjustedX))
     
-    let fraction = 0.5 + radians / CGFloat(M_PI * 2)
+    let fraction = 0.5 + radians / (M_PI * 2)
     
     return vectorGradient.colorForPoint(fraction)
 }
 
-func horizontalGradientColorFunc<VG: VectorGradient>(vectorGradient: VG)(x: CGFloat, y: CGFloat) -> NSColor {
+func horizontalGradientColorFunc<VG: VectorGradient>(vectorGradient: VG)(x: Double, y: Double) -> NSColor {
     return vectorGradient.colorForPoint(x)
 }
-
-
-
 
 
 let sideLength = 600

@@ -1,5 +1,4 @@
-import Foundation
 
 public protocol VectorGradient {
-    func colorVectorForPoint(point: CGFloat) -> ColorVector
+    func colorVectorForPoint(point: Double) -> ColorVector
 }

@@ -1,6 +1,5 @@
-import Foundation
 
-func linearTransitionFunc(point: CGFloat) -> CGFloat {
+func linearTransitionFunc(point: Double) -> Double {
     if point < 0.0 {
         return 0.0
     } else if point > 1.0 {
